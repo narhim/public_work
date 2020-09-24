@@ -36,10 +36,6 @@ def precision_f_score(dic_answers,output_per_query,dic_raw_doc):#Calculate preci
 	q_relevant = []
 	average_precision = 0
 	precisions = {}
-	average_recall = 0
-	recalls = {}
-	f_scores = {}
-	average_f = 0
 	for (q,a),(qu,s) in zip(dic_answers.items(),output_per_query.items()):		
 		relevant = 0
 		total_recovered = len(s)
@@ -52,21 +48,7 @@ def precision_f_score(dic_answers,output_per_query,dic_raw_doc):#Calculate preci
 		precisions[q] = precision
 		average_precision += precision
 		overall_precision = average_precision/len(output_per_query.keys())
-		recall = relevant/ (len(relevant_answers)+1)
-
-		recalls[q] = recall
-		average_recall += recall
-		den = precision+recall
-		if den == 0:
-			f_score = 0
-		else:
-			f_score = 2*(precision*recall)/(precision+recall)
-		f_scores[q] = f_score
-		average_f += f_score
-		overall_precision = average_precision/len(output_per_query.keys())
-		overall_recall = average_recall/len(output_per_query.keys())
-		overall_f = average_f/len(output_per_query.keys())
-	return precisions,f_scores,overall_precision,overall_f,q_relevant
+	return precisions,overall_precision,q_relevant,average_precision
 
 
 def calculate_mrr(dic_answers, sent_output_per_query):
@@ -80,13 +62,10 @@ def calculate_mrr(dic_answers, sent_output_per_query):
 	return sum_ranks/100
 
 
-def write_results(dic_precisions,dic_f_scores,overall_precision,overall_f,q_relevant,name):
+def write_results(dic_precisions,overall_precision,q_relevant,average_precision,name):
 	#Write all the results in a .txt file.
 	with open(name,"w",encoding = "utf-8") as file:
 		for k,v in dic_precisions.items():
 			file.write('The precision for query ' + str(k) + ' is ' + str(v) + '\n')
 		file.write('The average precision is ' + str(overall_precision) + '\n')
 		file.write('The number of queries that have at least one relevant output is ' + str(len(set(q_relevant))))
-		for i, g in dic_f_scores.items():
-			file.write('The F1 score for query ' + str(i) + ' is ' + str(g) + '\n')
-		file.write('The average F1 score is ' + str(overall_f) + '\n')

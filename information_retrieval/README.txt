@@ -4,7 +4,7 @@ The system consists on three distinguished parts:
 
 	1.- Basic tf-idf implementation: 
 		- Document retrieval implementation that retrieves the top 50 documents for the 100 queries. The retrieval is based in tf-idf weights and cosine similarity, queries are treated as documents.
-		- Outputs are then evaluated based on the regex patterns contained in the gold file, both precision and F1-Score are calculated for each query and for the whole of the queries and outputted into the directory "results".
+		- Outputs are then evaluated based on the regex patterns contained in the gold file, precision is calculated for each query and for the whole of the queries and outputted into the directory "results".
 		- Queries (test_questions.txt), documents (trec_documents.xml) and gold file (patterns.text) are contained in the directory "data". 
 
 	2.- Advance Document Retriever (BM25) Re-Ranking: 

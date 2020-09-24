@@ -38,7 +38,7 @@ def main():
 	output_per_query = evaluation_results.select_output_query(tf_idf_cos_similarity)
 	answers = evaluation_results.get_answers('./data/patterns.txt')
 	scores = evaluation_results.precision_f_score(answers,output_per_query,dic_raw_doc)
-	evaluation_results.write_results(scores[0],scores[1],scores[2],scores[3],scores[4],'./results/results_basic_tf-idf.txt')
+	evaluation_results.write_results(scores[0],scores[1],scores[2],scores[3],'./results/results_basic_tf-idf.txt')
 
 	output_per_query_1000 = evaluation_results.select_doc_query(tf_idf_cos_similarity)
 	bm_idf_dic = bm_implementation.calculate_idf_dic(dic_count_doc,N)
@@ -66,7 +66,7 @@ def main():
 		rerank_bm_scores = evaluation_results.precision_f_score(answers,rerank_bm_output_per_query,dic_raw_doc)
 		path = './results/results_rerank_bm' + '_k_value_' + str(k) + '.txt'
 		#print(rerank_bm_scores[0],rerank_bm_scores[1],rerank_bm_scores[2],rerank_bm_scores[3],rerank_bm_scores[4])	
-		evaluation_results.write_results(rerank_bm_scores[0],rerank_bm_scores[1],rerank_bm_scores[2],rerank_bm_scores[3],rerank_bm_scores[4],path)
+		evaluation_results.write_results(rerank_bm_scores[0],rerank_bm_scores[1],rerank_bm_scores[2],rerank_bm_scores[3],path)
  												
 
 	# Part 3: Sentence Ranker
