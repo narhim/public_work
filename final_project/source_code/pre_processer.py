@@ -20,14 +20,14 @@ class get_data:
 		return text,prior_p
 
 	def list_raw_text_n_files(self,path):
-		files = []
-		for r, d, f in os.walk(path):
-			for file in f:
+		list_files = []
+		for root, directories, files in os.walk(path):
+			for file in files:
 				if '.txt' in file:
-					files.append(os.path.join(r, file))           
+					list_files.append(os.path.join(root, file))           
 		text = []
-		prior_p = len(files)
-		for f in files:
+		prior_p = len(list_files)
+		for f in list_files:
 			with open(f,"r",encoding = "utf-8") as file:
 				text.append([file.read()])
 		return text,prior_p
